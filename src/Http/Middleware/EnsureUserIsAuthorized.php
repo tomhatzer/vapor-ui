@@ -18,9 +18,7 @@ class EnsureUserIsAuthorized
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $allowed = app()->environment('local')
-            || app()->environment('testing')
-            || Gate::allows('viewVaporUI', [$request->user()]);
+        $allowed = Gate::allows('viewVaporUI', [$request->user()]);
 
         abort_unless($allowed, 403);
 
